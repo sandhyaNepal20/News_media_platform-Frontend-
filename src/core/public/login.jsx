@@ -1,30 +1,29 @@
 import React from "react";
-import "../../Login.css";
 
 const Login = () => {
   return (
-    <div className="login-container">
+    <div className="min-h-screen flex items-center justify-center bg-[#101F3F]">
       <div className="flex w-full max-w-screen-lg">
         {/* Left Side: Logo */}
         <div className="flex-1 flex justify-center items-center">
-          <img src="src/assets/logo.png" alt="Logo" className="w-64" /> {/* Adjust the logo size as needed */}
+          <img src="src/assets/logo.png" alt="Logo" className="w-200" />
         </div>
 
         {/* Right Side: Form */}
         <div className="flex-1 flex justify-center">
-          <form className="max-w-sm w-full">
+          <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-sm">
             {/* Email Field */}
             <div className="mb-5">
               <label
                 htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Email
               </label>
               <input
                 type="email"
                 id="email"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 placeholder="name@gmail.com"
                 required
               />
@@ -34,14 +33,14 @@ const Login = () => {
             <div className="mb-5">
               <label
                 htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-white"
               >
                 Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-zinc-200 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                 required
               />
             </div>
@@ -55,7 +54,7 @@ const Login = () => {
               />
               <label
                 htmlFor="remember"
-                className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="ml-2 text-sm font-medium text-white"
               >
                 Remember me
               </label>
@@ -65,16 +64,15 @@ const Login = () => {
             <div className="mt-5 text-center">
               <button
                 type="submit"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-black bg-blue-700 hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
               >
                 Login
               </button>
-
             </div>
 
             <div className="mt-4 text-center">
               <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">
-                Don't have an account?    SignUp
+                Don't have an account? SignUp
               </a>
             </div>
 
