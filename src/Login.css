@@ -1,0 +1,70 @@
+/* Login.css */
+
+/* Apply background image and styling to the container */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-image: url('src/assets/logo.png'); */
+    /* Replace with the path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #001F3F;
+}
+
+.login-container img {
+    width: 300px;
+    /* Reduced width of the logo */
+}
+
+/* Form Styling */
+form {
+    background-color: rgba(255, 255, 255, 0.8);
+    /* Semi-transparent background for the form */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 350px;
+    /* Reduced max width */
+}
+
+/* Styling for Login button */
+.bg-blue-700 {
+    --tw-bg-opacity: 1;
+    background-color: #001F3F;
+}
+
+/* Styling for Forgot Password link */
+.forgot-password {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    color: #1D4ED8;
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Styling for Remember Me checkbox */
+input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+/* Additional styles */
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.text-center {
+    text-align: center;
+}
