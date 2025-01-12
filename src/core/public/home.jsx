@@ -4,150 +4,126 @@ function Home() {
     return (
         <>
             <div className="min-h-screen flex flex-col">
-                <nav className="bg-[#101F3F] border-gray-200 dark:bg-[#101F3F]">
-                    <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                        {/* Logo */}
-                        <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                            <img src="src/assets/logo.png" className="h-18 w-[90px]" alt="Flowbite Logo" />
+                <nav class="bg-[#101F3F]">
+                    <div class="max-w-screen-xl mx-auto px-4 py-2 flex items-center justify-between">
+                        {/* <!-- Logo Section --> */}
+                        <a href="#" class="flex items-center space-x-3">
+                            <img src="src/assets/logo.png" alt="Logo" class="h-10 w-auto" />
                         </a>
 
-                        {/* Right Section: Search Bar, Notification Icon, Hamburger Menu */}
-                        <div className="flex items-center space-x-4 md:order-2">
-                            {/* Search Bar */}
-                            <div className="relative hidden md:block">
+                        {/* <!-- Desktop Navigation & Search --> */}
+                        <div class="hidden md:flex items-center space-x-6">
+                            <ul class="flex items-center space-x-6">
+                                <li><a href="#" class="text-white hover:text-blue-400">Home</a></li>
+                                <li><a href="#" class="text-white hover:text-blue-400">Politics</a></li>
+                                <li><a href="#" class="text-white hover:text-blue-400">Science & Tech</a></li>
+                                <li><a href="#" class="text-white hover:text-blue-400">Economy</a></li>
+                                <li><a href="#" class="text-white hover:text-blue-400">Travel</a></li>
+                                <li><a href="#" class="text-white hover:text-blue-400">Climate</a></li>
+                                <li><a href="#" class="text-white hover:text-blue-400">Business</a></li>
+
+                                {/* <!-- Login & Signup Categories --> */}
+                                <li><a href="#login" class="text-white hover:text-blue-400">LogIn/SignUp</a></li>
+                            </ul>
+
+                            {/* <!-- Search Bar --> */}
+                            <div class="relative">
                                 <input
                                     type="text"
-                                    id="search-navbar"
-                                    className="block w-48 p-2 text-sm text-white bg-[#101F3F] border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-[#101F3F] dark:text-white dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    class="w-48 px-3 py-2 text-sm text-white bg-[#101F3F] border border-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                                     placeholder="Search..."
                                 />
                             </div>
 
-                            {/* Notification Icon */}
+                            {/* <!-- Notifications Dropdown --> */}
+                            <div class="relative">
+                                <button
+                                    id="notification-toggle"
+                                    class="text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                >
+                                    <svg
+                                        class="w-6 h-6"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C8.67 6.165 8 7.388 8 8.828v5.33a2.032 2.032 0 01-.595 1.435L6 17h5m4 0a3 3 0 11-6 0h6z"
+                                        />
+                                    </svg>
+                                </button>
+
+                                {/* <!-- Notifications Menu --> */}
+                                <div
+                                    id="notification-menu"
+                                    class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg"
+                                >
+                                    <ul class="py-1 text-gray-700">
+                                        <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">New comment on your post</a></li>
+                                        <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">3 new likes on your article</a></li>
+                                        <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Weekly newsletter is out</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* <!-- Hamburger Menu --> */}
+                        <div class="md:hidden">
                             <button
                                 type="button"
-                                className="relative text-white focus:outline-none hover:text-blue-400"
+                                class="text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                id="menu-toggle"
                             >
                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="w-6 h-6"
+                                    class="w-6 h-6"
                                     fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
-                                    strokeWidth="2"
+                                    stroke-width="2"
                                 >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11c0-3.14-1.64-5.697-4.5-6.32V4a1.5 1.5 0 00-3 0v.68C7.64 5.303 6 7.86 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h11z"
-                                    />
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 21a2 2 0 01-4 0" />
-                                </svg>
-                                {/* Notification Badge */}
-                                {/* <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full text-[10px] text-white flex items-center justify-center">
-                                    3
-                                </span> */}
-                            </button>
-
-                            {/* Hamburger Menu */}
-                            <button
-                                data-collapse-toggle="navbar-default"
-                                type="button"
-                                className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-[#101F3F] focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-white dark:hover:bg-[#101F3F] dark:focus:ring-gray-600"
-                                aria-controls="navbar-default"
-                                aria-expanded="false"
-                            >
-                                <span className="sr-only">Open main menu</span>
-                                <svg
-                                    className="w-5 h-5"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 17 14"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M1 1h15M1 7h15M1 13h15"
-                                    />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
                                 </svg>
                             </button>
-                        </div>
-
-                        {/* Navigation Menu */}
-                        <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                            <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-[#101F3F] md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-[#101F3F] dark:border-gray-700">
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-                                        aria-current="page"
-                                    >
-                                        Home
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white rounded hover:bg-[#101F3F] md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-[#101F3F] dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Politics
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white rounded hover:bg-[#101F3F] md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-[#101F3F] dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Science & Tech
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white rounded hover:bg-[#101F3F] md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-[#101F3F] dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Economy
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white rounded hover:bg-[#101F3F] md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-[#101F3F] dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Travel
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white rounded hover:bg-[#101F3F] md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-[#101F3F] dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Climate
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white rounded hover:bg-[#101F3F] md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-[#101F3F] dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Business
-                                    </a>
-                                </li>
-                                <li>
-                                    <a
-                                        href="#"
-                                        className="block py-2 px-3 text-white rounded hover:bg-[#101F3F] md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-[#101F3F] dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        LogIn/SignUp
-                                    </a>
-                                </li>
-                            </ul>
                         </div>
                     </div>
+
+                    {/* <!-- Mobile Navigation --> */}
+                    <div class="hidden md:hidden" id="menu">
+                        <ul class="space-y-2 p-4 bg-[#101F3F]">
+                            <li><a href="#" class="block text-white hover:text-blue-400">Home</a></li>
+                            <li><a href="#" class="block text-white hover:text-blue-400">Politics</a></li>
+                            <li><a href="#" class="block text-white hover:text-blue-400">Science & Tech</a></li>
+                            <li><a href="#" class="block text-white hover:text-blue-400">Economy</a></li>
+                            <li><a href="#" class="block text-white hover:text-blue-400">Travel</a></li>
+                            <li><a href="#" class="block text-white hover:text-blue-400">Climate</a></li>
+                            <li><a href="#" class="block text-white hover:text-blue-400">Business</a></li>
+
+                            {/* <!-- Mobile Login & Signup Categories --> */}
+                            <li><a href="#login" class="block text-white hover:text-blue-400">Login</a></li>
+                            <li><a href="#signup" class="block text-white hover:text-blue-400">Sign Up</a></li>
+                        </ul>
+                    </div>
                 </nav>
+
+                {/* <!-- JavaScript for Menu and Notification Toggling --> */}
+                {/* <script>
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+        const menu = document.getElementById('menu');
+        menu.classList.toggle('hidden');
+    });
+
+    document.getElementById('notification-toggle').addEventListener('click', () => {
+        const notificationMenu = document.getElementById('notification-menu');
+        notificationMenu.classList.toggle('hidden');
+    });
+</script> */}
+
+
 
 
                 <main className="flex-grow bg-gray-100 py-8">

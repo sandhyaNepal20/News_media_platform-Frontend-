@@ -4,6 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 // import Home from "./core/public/home"
 const Home = lazy(() => import("./core/public/home"))
 
+
+// import Home from "./core/public/home"
+const AdminDashboard = lazy(() => import("./core/public/admin-dashboard"))
+
 // import Login from "./core/public/login"
 const Login = lazy(() => import("./core/public/login"))
 
@@ -25,6 +29,8 @@ function App() {
     { path: "/", element: <Home /> },
 
     { path: "/login", element: <Login /> },
+    { path: "/admin-dashboard", element: <AdminDashboard /> },
+
     { path: "/login-customer", element: <LoginCustomer /> },
     { path: "/register", element: <Register /> },
     { path: "*", element: <>unauthorized</> }
