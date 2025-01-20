@@ -6,12 +6,16 @@ const Login = () => {
       <div className="flex w-full max-w-screen-lg">
         {/* Left Side: Logo */}
         <div className="flex-1 flex justify-center items-center">
-          <img src="src/assets/logo.png" alt="Logo" className="w-200" />
+          <img
+            src="src/assets/logo.png"
+            alt="Logo"
+            className="w-[200px] sm:w-[250px] md:w-[300px]" // Responsive logo size
+          />
         </div>
 
         {/* Right Side: Form */}
         <div className="flex-1 flex justify-center">
-          <form className="bg-[#101F3F] p-4 rounded-lg shadow-xl w-full max-w-xs h-[350px] mt-10">
+          <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10">
             {/* Email Field */}
             <div className="mb-4">
               <label
@@ -70,15 +74,16 @@ const Login = () => {
               </button>
             </div>
 
+            {/* Sign Up Link */}
             <div className="mt-4 text-center">
-              <a href="#" className="text-blue-600 hover:underline">
+              <a href="#" className="text-white-600 hover:underline">
                 Don't have an account? SignUp
               </a>
             </div>
 
             {/* Forgot Password Link */}
             <div className="mt-4 text-center">
-              <a href="#" className="text-blue-600 hover:underline">
+              <a href="#" className="text-white-600 hover:underline">
                 Forgot password?
               </a>
             </div>
