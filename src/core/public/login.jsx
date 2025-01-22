@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 
 const Login = () => {
   return (
@@ -15,7 +17,7 @@ const Login = () => {
 
         {/* Right Side: Form */}
         <div className="flex-1 flex justify-center">
-          <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10">
+          <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10 shadow-white shadow-[0px_0px_10px_0px_white]">
             {/* Email Field */}
             <div className="mb-4">
               <label
@@ -68,22 +70,23 @@ const Login = () => {
             <div className="mt-4 text-center">
               <button
                 type="submit"
-                className="text-black bg-blue-700 hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center"
+                className="text-black bg-white hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center border-2 border-transparent hover:border-black"
               >
                 Login
               </button>
             </div>
 
-            {/* Sign Up Link */}
             <div className="mt-4 text-center">
-              <a href="#" className="text-white-600 hover:underline">
-                Don't have an account? SignUp
+              <a href="#" className="text-sm font-medium text-white">
+                Don't have an account?
               </a>
+              <Link to="/register" className="text-sm font-medium text-white hover:underline">
+                SignUp
+              </Link>
             </div>
-
             {/* Forgot Password Link */}
             <div className="mt-4 text-center">
-              <a href="#" className="text-white-600 hover:underline">
+              <a href="#" className="text-sm font-medium text-white hover:underline">
                 Forgot password?
               </a>
             </div>
