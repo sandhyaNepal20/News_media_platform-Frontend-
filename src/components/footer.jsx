@@ -50,15 +50,15 @@ const RightsReserved = styled.p`
 `;
 
 const Footer = () => {
-    return (
-        <FooterWrapper>
-            {/* <FooterImage src="src/assets/logo.png" alt="Logo" /> */}
-            <FooterContent>
-                <Heading>TrueLine News</Heading>
-                <RightsReserved>@2025trueline@gmail.com</RightsReserved>
-            </FooterContent>
-        </FooterWrapper>
-    );
+  return (
+    <FooterWrapper>
+      {/* <FooterImage src="src/assets/logo.png" alt="Logo" /> */}
+      <FooterContent>
+        <Heading>TrueLine News</Heading>
+        <RightsReserved>@2025trueline@gmail.com</RightsReserved>
+      </FooterContent>
+    </FooterWrapper>
+  );
 };
 
 export default Footer;
