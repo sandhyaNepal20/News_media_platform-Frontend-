@@ -1,32 +1,33 @@
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-    // State variables
-    const [active, setActive] = useState(false); // For the hamburger menu
-    const [showCategoryDropdown, setShowCategoryDropdown] = useState(false); // For the dropdown menu
-    const [selectedCategory, setSelectedCategory] = useState(null); // For selected category
-    const [theme, setTheme] = useState("light-theme"); // For theme toggle
+    const [active, setActive] = useState(false); // Hamburger menu state
+    const [showCategoryDropdown, setShowCategoryDropdown] = useState(false); // Dropdown visibility state
+    const [selectedCategory, setSelectedCategory] = useState(null); // Selected category
+    const category = ["business", "entertainment", "health", "science", "sports", "technology"]; // Categories
 
-    const category = ["business", "politics", "science", "sports", "technology"]; // Example categories
-    // Apply the theme to the body class
-    useEffect(() => {
-        document.body.className = theme;
-    }, [theme]);
+    let timeoutId = null; // For managing the timeout
 
-    // Toggle theme between light and dark
     const toggleTheme = () => {
-        setTheme((prevTheme) =>
-            prevTheme === "light-theme" ? "dark-theme" : "light-theme"
-        );
+        console.log("Theme toggled!");
     };
 
-
     const handleCategoryClick = (category) => {
-        setSelectedCategory(category); // Set the selected category
-        setShowCategoryDropdown(false); // Close the dropdown after selection
+        setSelectedCategory(category);
+    };
+
+    const handleMouseEnter = () => {
+        clearTimeout(timeoutId); // Clear any existing timeouts
+        setShowCategoryDropdown(true); // Show dropdown immediately when hovered
+    };
+
+    const handleMouseLeave = () => {
+        timeoutId = setTimeout(() => {
+            setShowCategoryDropdown(false); // Hide after delay
+        }, 200); // Adjust delay time if necessary
     };
 
     return (
@@ -35,9 +36,9 @@ function Navbar() {
                 {/* Logo */}
                 <img
                     src="src/assets/logo1.png"
-                    alt="Logo"
+                    alt="News Aggregator Logo"
                     className="md:basis-1/6 xs:basis-4/12 z-50"
-                    style={{ maxWidth: "85px", maxHeight: "75px" }}
+                    style={{ maxWidth: "85px", maxHeight: "60px" }}
                 />
 
                 {/* Navigation Menu */}
@@ -49,26 +50,23 @@ function Navbar() {
                     </li>
                     <li
                         className="relative"
-                        onMouseEnter={() => setShowCategoryDropdown(true)} // Show dropdown on hover
-                        onMouseLeave={() => setShowCategoryDropdown(false)} // Hide dropdown on hover out
+                        onMouseEnter={handleMouseEnter} // Use custom mouse enter handler
+                        onMouseLeave={handleMouseLeave} // Use custom mouse leave handler
                     >
                         <Link
                             className="no-underline font-semibold flex items-center gap-2 text-black"
-                            to="#"
-                            onClick={() => setActive(false)}
+                            onClick={() => setShowCategoryDropdown(true)} // Ensure dropdown stays open on click
                         >
                             {selectedCategory ? `Top-Headlines: ${selectedCategory}` : 'Top-Headlines'}
                             <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
                         </Link>
-
-                        {/* Dropdown Menu */}
                         <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown absolute left-0 top-full bg-white shadow-lg rounded-lg" : "dropdown p-2 hidden"}>
                             {category.map((element, index) => (
                                 <li key={index}>
                                     <Link
                                         to={`/top-headlines/${element}`}
-                                        className={`flex gap-3 capitalize text-black p-2 ${selectedCategory === element ? 'bg-gray-300' : ''}`}
-                                        onClick={() => handleCategoryClick(element)} // Set the selected category and close dropdown
+                                        className="flex gap-3 capitalize text-black"
+                                        onClick={() => handleCategoryClick(element)}
                                     >
                                         {element}
                                     </Link>
@@ -81,18 +79,9 @@ function Navbar() {
                             Login/Signup
                         </Link>
                     </li>
-                    {/* Theme Toggle */}
                     <li>
-                        <Link
-                            className="no-underline font-semibold text-white"
-                            to="#"
-                            onClick={toggleTheme}
-                        >
-                            <input
-                                type="checkbox"
-                                className="checkbox"
-                                id="checkbox"
-                            />
+                        <Link className="no-underline font-semibold text-black" to="#" onClick={toggleTheme}>
+                            <input type="checkbox" className="checkbox" id="checkbox" />
                             <label htmlFor="checkbox" className="checkbox-label">
                                 <i className="fas fa-moon"></i>
                                 <i className="fas fa-sun"></i>
@@ -101,7 +90,6 @@ function Navbar() {
                         </Link>
                     </li>
                 </ul>
-
 
                 {/* Hamburger Menu */}
                 <div
