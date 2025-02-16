@@ -16,7 +16,7 @@ const Register = () => {
 
         {/* Right Side: Form */}
         <div className="flex-1 flex justify-center">
-          <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[500px] mt-10 shadow-white shadow-[0px_0px_10px_0px_white]">
+          <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10 shadow-[10px_8px_4px_0px_rgba(255, 253, 231, 0.8)]">
             {/* Name Field */}
             <div className="mb-4">
               <label

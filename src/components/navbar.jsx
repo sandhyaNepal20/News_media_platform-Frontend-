@@ -32,13 +32,13 @@ function Navbar() {
 
     return (
         <header>
-            <nav className="fixed top-0 left-0 w-full h-auto bg-white z-10 flex items-center justify-between px-5 py-3">
+            <nav className="fixed top-0 left-0 w-full bg-white z-50 flex items-center justify-between px-5 py-4 shadow-md">
                 {/* Logo */}
                 <img
                     src="src/assets/logo1.png"
                     alt="News Aggregator Logo"
                     className="md:basis-1/6 xs:basis-4/12 z-50"
-                    style={{ maxWidth: "85px", maxHeight: "60px" }}
+                    style={{ maxWidth: "75px", maxHeight: "60px" }}
                 />
 
                 {/* Navigation Menu */}

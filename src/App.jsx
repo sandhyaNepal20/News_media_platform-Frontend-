@@ -4,6 +4,7 @@ import "./App.css"; // Ensure CSS is imported
 
 // import Home from "./core/public/home"
 const Home = lazy(() => import("./core/public/home"))
+const Category = lazy(() => import("./core/public/caregories"))
 
 const MyAccount = lazy(() => import("./core/public/myaccount"))
 
@@ -30,6 +31,7 @@ function App() {
 
   const publicRoutes = [
     { path: "/", element: <Home /> },
+    { path: "/category", element: <Category /> },
     { path: "/myaccount", element: <MyAccount /> },
 
 

@@ -1,6 +1,8 @@
 import React from "react";
 import Footer from "../../components/footer.jsx";
 import Navbar from "../../components/navbar.jsx";
+import News from "../../components/News.jsx";
+import Header from "../../components/Search.jsx";
 
 
 function Home() {
@@ -11,7 +13,9 @@ function Home() {
 
             <Navbar />
 
+            <Header />
 
+            <News />
             <Footer />
         </div>
 
