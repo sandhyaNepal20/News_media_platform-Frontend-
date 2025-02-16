@@ -1,8 +1,11 @@
-import { lazy } from "react"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { lazy } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css"; // Ensure CSS is imported
 
 // import Home from "./core/public/home"
 const Home = lazy(() => import("./core/public/home"))
+
+const MyAccount = lazy(() => import("./core/public/myaccount"))
 
 
 // import Home from "./core/public/home"
@@ -27,6 +30,8 @@ function App() {
 
   const publicRoutes = [
     { path: "/", element: <Home /> },
+    { path: "/myaccount", element: <MyAccount /> },
+
 
     { path: "/login", element: <Login /> },
     { path: "/admin-dashboard", element: <AdminDashboard /> },
