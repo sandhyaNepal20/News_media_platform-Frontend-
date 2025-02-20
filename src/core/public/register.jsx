@@ -1,7 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useRegisterUser } from "./query";
 const Register = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const saveApi = useRegisterUser();
+  const submit = (data) => {
+    const formData = new FormData();
+    formData.append("fullName", data.fullName);
+    formData.append("email", data.email);
+    formData.append("password", data.password);
+
+    console.log("Form Data before sending:", Object.fromEntries(formData.entries()));
+
+    saveApi.mutate(data, {
+      onSuccess: () => {
+        alert("Registration successful!");
+      },
+      onError: (error) => {
+        console.error("Error Response:", error.response?.data);
+        alert(`Error: ${error.response?.data?.message || "Something went wrong"}`);
+      },
+    });
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#101F3F]">
       <div className="flex w-full max-w-screen-lg">
@@ -15,7 +37,7 @@ const Register = () => {
         </div>
 
         {/* Right Side: Form */}
-        <div className="flex-1 flex justify-center">
+        <div onSubmit={handleSubmit(submit)} className="flex-1 flex justify-center">
           <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10 shadow-[10px_8px_4px_0px_rgba(255, 253, 231, 0.8)]">
             {/* Name Field */}
             <div className="mb-4">
@@ -30,8 +52,7 @@ const Register = () => {
                 id="name"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Enter your FullName"
-                required
-              />
+                required {...register("fullName", { required: "Full Name is required" })} />
             </div>
 
             {/* Email Field */}
@@ -47,8 +68,7 @@ const Register = () => {
                 id="email"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="name@gmail.com"
-                required
-              />
+                required {...register("email", { required: "Email is required" })} />
             </div>
 
             {/* Password Field */}
@@ -63,8 +83,7 @@ const Register = () => {
                 type="password"
                 id="password"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required
-              />
+                required {...register("password", { required: "Password is required" })} />
             </div>
 
             {/* Confirm Password Field */}
@@ -79,7 +98,7 @@ const Register = () => {
                 type="password"
                 id="confirmPassword"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required
+              // required
               />
             </div>
 
@@ -90,6 +109,7 @@ const Register = () => {
                 className="text-black bg-white hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center border-2 border-transparent hover:border-black"
               >
                 Register
+                {saveApi.isLoading}
               </button>
             </div>
 
