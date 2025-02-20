@@ -17,7 +17,7 @@ body {
     scroll-behavior: smooth;
 }
 
-.light-theme {
+/* .light-theme {
     --background: url("https://tailwindcss.com/_next/static/media/hero@75.b2469a49.jpg");
     --primary: #F8FAFC;
     --secondary: #0F172A;
@@ -39,7 +39,7 @@ body {
     --btn-color: #000;
     --btn-background: #5f99be;
     --search-background: #18181b;
-}
+} */
 
 body {
     background: var(--background);
@@ -456,4 +456,26 @@ a.hover-link:hover {
     .card {
         max-width: 360px;
     }
+}
+
+
+
+
+/* Mobile hamburger menu style */
+.nav-ul.active {
+    display: block;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    /* Ensure menu is above overlay */
+    overflow-y: auto;
+}
+
+/* Menu items style */
+.nav-ul li {
+    padding: 12px;
 }

@@ -1,19 +1,42 @@
 import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
 function Navbar() {
     const [active, setActive] = useState(false); // Hamburger menu state
     const [showCategoryDropdown, setShowCategoryDropdown] = useState(false); // Dropdown visibility state
     const [selectedCategory, setSelectedCategory] = useState(null); // Selected category
-    const category = ["business", "entertainment", "health", "science", "sports", "technology"]; // Categories
+    const category = ["Business", "Entertainment", "Health", "Science $ Tech", "Sports", "Politics"]; // Categories
+    const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark"); // Retrieve from local storage
 
     let timeoutId = null; // For managing the timeout
 
+
+    useEffect(() => {
+        if (darkMode) {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+    }, [darkMode]);
+
     const toggleTheme = () => {
-        console.log("Theme toggled!");
+        setDarkMode((prevMode) => {
+            const newMode = !prevMode;
+            if (newMode) {
+                document.documentElement.classList.add("dark");
+                localStorage.setItem("theme", "dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+                localStorage.setItem("theme", "light");
+            }
+            return newMode;
+        });
     };
+
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
@@ -57,14 +80,14 @@ function Navbar() {
                             className="no-underline font-semibold flex items-center gap-2 text-black"
                             onClick={() => setShowCategoryDropdown(true)} // Ensure dropdown stays open on click
                         >
-                            {selectedCategory ? `Top-Headlines: ${selectedCategory}` : 'Top-Headlines'}
+                            {selectedCategory ? `${selectedCategory}` : 'Top-Headlines'}
                             <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
                         </Link>
                         <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown absolute left-0 top-full bg-white shadow-lg rounded-lg" : "dropdown p-2 hidden"}>
                             {category.map((element, index) => (
                                 <li key={index}>
                                     <Link
-                                        to={`/top-headlines/${element}`}
+                                        to="/category"
                                         className="flex gap-3 capitalize text-black"
                                         onClick={() => handleCategoryClick(element)}
                                     >
@@ -80,14 +103,12 @@ function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <Link className="no-underline font-semibold text-black" to="#" onClick={toggleTheme}>
-                            <input type="checkbox" className="checkbox" id="checkbox" />
-                            <label htmlFor="checkbox" className="checkbox-label">
-                                <i className="fas fa-moon"></i>
-                                <i className="fas fa-sun"></i>
-                                <span className="ball"></span>
-                            </label>
-                        </Link>
+                        <label className="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" className="sr-only peer" checked={darkMode} onChange={toggleTheme} />
+                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-blue-600 dark:bg-gray-700">
+                                <div className={`absolute top-0.5 left-1 bg-white w-5 h-5 rounded-full transition-transform ${darkMode ? "translate-x-5" : ""}`}></div>
+                            </div>
+                        </label>
                     </li>
                 </ul>
 

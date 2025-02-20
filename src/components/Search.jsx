@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
     return (
         <header
-            className="bg-white py-4 px-6 shadow-md"
+            className="bg-[#ecf0f1] py-4 px-6 shadow-md"
             style={{
                 height: '400px',
                 backgroundImage: 'url(/src/assets/globe.jpg)',// Add your image URL here

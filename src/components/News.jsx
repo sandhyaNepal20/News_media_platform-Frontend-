@@ -17,13 +17,13 @@ const News = () => {
                     <Card
                         title="Card Title 2"
                         description="This is a description for the second card."
-                        imageUrl="src\assets\news.jpg"
+                        imageUrl="src\assets\news3.jpg"
                         publishedAt="2025-02-15"
                     />
                     <Card
                         title="Card Title 3"
                         description="This is a description for the third card."
-                        imageUrl="src\assets\news.jpg"
+                        imageUrl="src\assets\globe1.jpg"
                         publishedAt="2025-02-14"
                     />
                 </div>
