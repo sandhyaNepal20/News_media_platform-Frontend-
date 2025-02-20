@@ -1,8 +1,29 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom"; // For navigation
+import { useLoginUser } from "./query";
 
 
 const Login = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const loginApi = useLoginUser();
+  const navigate = useNavigate();
+
+  const submit = (data) => {
+    console.log(data)
+    loginApi.mutate(data, {
+      onSuccess: (res) => {
+        alert("Login successful!");
+        console.log("Login Response:", res);
+
+        navigate("/");
+      },
+      onError: (error) => {
+        console.error("Login Error:", error.response?.data);
+        alert(`Error: ${error.response?.data?.message || "Invalid credentials"}`);
+      },
+    });
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#101F3F]">
       <div className="flex w-full max-w-screen-lg">
@@ -16,7 +37,7 @@ const Login = () => {
         </div>
 
         {/* Right Side: Form */}
-        <div className="flex-1 flex justify-center">
+        <div onSubmit={handleSubmit(submit)} className="flex-1 flex justify-center">
           <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10 shadow-[10px_8px_4px_0px_rgba(255, 253, 231, 0.8)]">
             {/* Email Field */}
             <div className="mb-4">
@@ -31,8 +52,8 @@ const Login = () => {
                 id="email"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="name@gmail.com"
-                required
-              />
+                required {...register("email", { required: "Email is required" })} />
+
             </div>
 
             {/* Password Field */}
@@ -47,8 +68,7 @@ const Login = () => {
                 type="password"
                 id="password"
                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                required
-              />
+                required {...register("password", { required: "Password is required" })} />
             </div>
 
             {/* Remember Me Checkbox */}
@@ -73,6 +93,7 @@ const Login = () => {
                 className="text-black bg-white hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center border-2 border-transparent hover:border-black"
               >
                 Login
+                {loginApi.isLoading}
               </button>
             </div>
 
