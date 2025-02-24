@@ -106,6 +106,7 @@ export const useSearchNews = (searchTerm) => {
         enabled: !!searchTerm, // Run only when searchTerm exists
     });
 };
+
 export const useGetCategories = () => {
     return useQuery({
         queryKey: "GET_CATEGORIES",
