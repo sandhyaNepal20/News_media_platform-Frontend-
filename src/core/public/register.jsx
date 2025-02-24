@@ -3,9 +3,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useRegisterUser } from "./query";
+
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const saveApi = useRegisterUser();
+  
   const submit = (data) => {
     const formData = new FormData();
     formData.append("fullName", data.fullName);
@@ -24,6 +26,8 @@ const Register = () => {
       },
     });
   };
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#101F3F]">
       <div className="flex w-full max-w-screen-lg">
@@ -50,7 +54,7 @@ const Register = () => {
               <input
                 type="text"
                 id="name"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="shadow-sm bg-gray-300 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="Enter your FullName"
                 required {...register("fullName", { required: "Full Name is required" })} />
             </div>
@@ -66,7 +70,7 @@ const Register = () => {
               <input
                 type="email"
                 id="email"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="shadow-sm bg-gray-300 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 placeholder="name@gmail.com"
                 required {...register("email", { required: "Email is required" })} />
             </div>
@@ -82,7 +86,7 @@ const Register = () => {
               <input
                 type="password"
                 id="password"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="shadow-sm bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required {...register("password", { required: "Password is required" })} />
             </div>
 
@@ -97,7 +101,7 @@ const Register = () => {
               <input
                 type="password"
                 id="confirmPassword"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                className="shadow-sm bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               // required
               />
             </div>

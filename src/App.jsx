@@ -3,14 +3,21 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // import Home from "./core/public/home"
 const Home = lazy(() => import("./core/public/home"))
+
 const Category = lazy(() => import("./core/public/caregories"))
 const NewsDetail = lazy(() => import("./core/public/Newsdetails"))
+const Search = lazy(() => import("./core/public/SearchResults"))
 
 const MyAccount = lazy(() => import("./core/public/myaccount"))
 
 
 // import Home from "./core/public/home"
 const AdminDashboard = lazy(() => import("./core/public/admin-dashboard"))
+const AddCategory = lazy(() => import("./core/private/news/add_news_category"))
+const ViewNewsCategory = lazy(() => import("./core/private/news/view_news_category"))
+
+const AddNews = lazy(() => import("./core/private/news/add_news"))
+const ViewNews = lazy(() => import("./core/private/news/view_news"))
 
 // import Login from "./core/public/login"
 const Login = lazy(() => import("./core/public/login"))
@@ -31,14 +38,19 @@ function App() {
 
   const publicRoutes = [
     { path: "/", element: <Home /> },
-    { path: "/category", element: <Category /> },
-    { path: "/newsdetail", element: <NewsDetail /> },
+    { path: "/category/:categoryName", element: <Category /> },
+    { path: "/newsdetail/:id", element: <NewsDetail /> },
+    { path: "/search/:searchQuery", element: <Search /> },
 
     { path: "/myaccount", element: <MyAccount /> },
-
-
     { path: "/login", element: <Login /> },
     { path: "/admin-dashboard", element: <AdminDashboard /> },
+    { path: "/add-category", element: <AddCategory /> },
+    { path: "/view-category", element: <ViewNewsCategory /> },
+
+    { path: "/add-news", element: <AddNews /> },
+
+    { path: "/view-news", element: <ViewNews /> },
 
     { path: "/login-customer", element: <LoginCustomer /> },
     { path: "/register", element: <Register /> },

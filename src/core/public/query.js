@@ -84,3 +84,45 @@ export const useDeleteNews = () => {
 };
 
 
+export const useNewsGetByCategory = (categoryId) => {
+    console.log(categoryId);
+
+    return useQuery({
+        queryKey: ["GET_NEWS_BY_CATEGORY", categoryId],
+        queryFn: () => {
+            return axios.get(`http://localhost:3000/api/news/category/${categoryId}`);
+        },
+        enabled: !!categoryId, // Ensures query only runs if categoryId is provided
+    });
+};
+
+export const useSearchNews = (searchTerm) => {
+    return useQuery({
+        queryKey: ["SEARCH_NEWS", searchTerm],
+        queryFn: async () => {
+            const response = await axios.get(`http://localhost:3000/api/news/getAll?search=${searchTerm}`);
+            return response.data;
+        },
+        enabled: !!searchTerm, // Run only when searchTerm exists
+    });
+};
+export const useGetCategories = () => {
+    return useQuery({
+        queryKey: "GET_CATEGORIES",
+        queryFn: async () => {
+            const response = await axios.get("http://localhost:3000/api/category"); // ✅ Corrected API path
+            return response.data;
+        }
+    });
+};
+
+export const useDeleteCategory = () => {
+    return useMutation({
+        mutationKey: "DELETE_CATEGORY",
+        mutationFn: async (id) => {
+            return axios.delete(`http://localhost:3000/api/category/${id}`); // ✅ Corrected API path
+        }
+    });
+};
+
+

@@ -1,8 +1,18 @@
 import { Camera } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 import Footer from "../../components/footer.jsx";
 import Navbar from "../../components/navbar.jsx";
 const MyAccount = () => {
+    const navigate = useNavigate();
+
+    const handleSignOut = () => {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userData");
+        window.dispatchEvent(new Event("storage")); // Ensure Navbar updates dynamically
+        navigate("/");
+    };
     return (
         <div className="bg-white min-h-screen">
 
@@ -32,7 +42,7 @@ const MyAccount = () => {
                 <p className="text-lg mb-4 border-b pb-2 w-full text-center">
                     You are signed in as <strong>sandhyanepal54@gmail.com</strong>.
                 </p>
-                <button className="text-blue-600 font-semibold underline mb-8">Sign Out</button>
+                <button onClick={handleSignOut} className="text-blue-600 font-semibold underline mb-8">Sign Out</button>
 
                 {/* Credentials Section */}
                 <div className="w-full max-w-2xl p-8 border rounded-lg shadow-md">

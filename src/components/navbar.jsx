@@ -1,17 +1,43 @@
-import { faCircleArrowDown } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/logo1.png";
+import { useGetCategory } from "../core/public/query";
 
 function Navbar() {
-    const [active, setActive] = useState(false); // Hamburger menu state
-    const [showCategoryDropdown, setShowCategoryDropdown] = useState(false); // Dropdown visibility state
-    const [selectedCategory, setSelectedCategory] = useState(null); // Selected category
-    const category = ["Business", "Entertainment", "Health", "Science $ Tech", "Sports", "Politics"]; // Categories
-    const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark"); // Retrieve from local storage
+    const [active, setActive] = useState(false);
+    const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
+    const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem("isLoggedIn") === "true");
 
-    let timeoutId = null; // For managing the timeout
+    const navigate = useNavigate();
+    let timeoutId = null;
 
+    // Fetch categories using react-query
+    const { data, isLoading, isError } = useGetCategory();
+
+    // Listen for login/logout changes
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setIsAuthenticated(localStorage.getItem("isLoggedIn") === "true");
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+        return () => window.removeEventListener("storage", handleStorageChange);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("userData");
+        setIsAuthenticated(false);
+
+        // Dispatch event to notify Navbar and other components
+        window.dispatchEvent(new Event("storage"));
+
+        navigate("/");
+    };
 
     useEffect(() => {
         if (darkMode) {
@@ -24,45 +50,29 @@ function Navbar() {
     }, [darkMode]);
 
     const toggleTheme = () => {
-        setDarkMode((prevMode) => {
-            const newMode = !prevMode;
-            if (newMode) {
-                document.documentElement.classList.add("dark");
-                localStorage.setItem("theme", "dark");
-            } else {
-                document.documentElement.classList.remove("dark");
-                localStorage.setItem("theme", "light");
-            }
-            return newMode;
-        });
+        setDarkMode((prevMode) => !prevMode);
     };
-
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
     };
 
     const handleMouseEnter = () => {
-        clearTimeout(timeoutId); // Clear any existing timeouts
-        setShowCategoryDropdown(true); // Show dropdown immediately when hovered
+        clearTimeout(timeoutId);
+        setShowCategoryDropdown(true);
     };
 
     const handleMouseLeave = () => {
         timeoutId = setTimeout(() => {
-            setShowCategoryDropdown(false); // Hide after delay
-        }, 200); // Adjust delay time if necessary
+            setShowCategoryDropdown(false);
+        }, 200);
     };
 
     return (
         <header>
             <nav className="fixed top-0 left-0 w-full bg-white z-50 flex items-center justify-between px-5 py-4 shadow-md">
                 {/* Logo */}
-                <img
-                    src="src/assets/logo1.png"
-                    alt="News Aggregator Logo"
-                    className="md:basis-1/6 xs:basis-4/12 z-50"
-                    style={{ maxWidth: "75px", maxHeight: "60px" }}
-                />
+                <img src={logo} alt="Logo" style={{ maxWidth: "75px", maxHeight: "60px" }} />
 
                 {/* Navigation Menu */}
                 <ul className={`nav-ul flex gap-14 justify-end ${active ? "active" : ""}`}>
@@ -73,35 +83,56 @@ function Navbar() {
                     </li>
                     <li
                         className="relative"
-                        onMouseEnter={handleMouseEnter} // Use custom mouse enter handler
-                        onMouseLeave={handleMouseLeave} // Use custom mouse leave handler
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
                     >
                         <Link
                             className="no-underline font-semibold flex items-center gap-2 text-black"
-                            onClick={() => setShowCategoryDropdown(true)} // Ensure dropdown stays open on click
+                            onClick={() => setShowCategoryDropdown(true)}
                         >
-                            {selectedCategory ? `${selectedCategory}` : 'Top-Headlines'}
-                            <FontAwesomeIcon className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"} icon={faCircleArrowDown} />
+                            {selectedCategory ? selectedCategory : "Top-Headlines"}
+                            <FontAwesomeIcon
+                                className={showCategoryDropdown ? "down-arrow-icon down-arrow-icon-active" : "down-arrow-icon"}
+                                icon={faCircleArrowDown}
+                            />
                         </Link>
                         <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown absolute left-0 top-full bg-white shadow-lg rounded-lg" : "dropdown p-2 hidden"}>
-                            {category.map((element, index) => (
-                                <li key={index}>
-                                    <Link
-                                        to="/category"
-                                        className="flex gap-3 capitalize text-black"
-                                        onClick={() => handleCategoryClick(element)}
-                                    >
-                                        {element}
-                                    </Link>
-                                </li>
-                            ))}
+                            {isLoading ? (
+                                <li className="text-gray-500">Loading...</li>
+                            ) : isError ? (
+                                <li className="text-red-500">Error loading categories</li>
+                            ) : (
+                                data?.data?.map((categoryItem, index) => (
+                                    <li key={index}>
+                                        <Link
+                                            to={`/category/${categoryItem.name}`}
+                                            className="flex gap-3 capitalize text-black"
+                                            onClick={() => handleCategoryClick(categoryItem.name)}
+                                        >
+                                            {categoryItem.name}
+                                        </Link>
+                                    </li>
+                                ))
+                            )}
                         </ul>
                     </li>
+
+                    {/* Show My Account if authenticated, else show Login/Signup */}
                     <li>
-                        <Link className="no-underline font-semibold flex items-center gap-2 text-black" to="/login">
-                            Login/Signup
-                        </Link>
+                        {!isAuthenticated ? (
+                            <Link className="no-underline font-semibold flex items-center gap-2 text-black" to="/login">
+                                Login/Signup
+                            </Link>
+                        ) : (
+                            <div className="relative group">
+                                <Link className="no-underline font-semibold flex items-center gap-2 text-black" to="/myaccount">
+                                    My Account
+                                </Link>
+
+                            </div>
+                        )}
                     </li>
+
                     <li>
                         <label className="inline-flex items-center cursor-pointer">
                             <input type="checkbox" className="sr-only peer" checked={darkMode} onChange={toggleTheme} />
