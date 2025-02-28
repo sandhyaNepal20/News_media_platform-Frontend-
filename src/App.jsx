@@ -21,6 +21,8 @@ const ViewNews = lazy(() => import("./core/private/news/view_news"))
 
 // import Login from "./core/public/login"
 const Login = lazy(() => import("./core/public/login"))
+const Forgotpassword = lazy(() => import("./core/public/forgotpassword"))
+// const Resetpassword = lazy(() => import("./core/public/resetpassword"))
 
 // import LoginCustomer from "./core/public/login-customer"
 const LoginCustomer = lazy(() => import("./core/public/login-customer"))
@@ -44,6 +46,9 @@ function App() {
 
     { path: "/myaccount", element: <MyAccount /> },
     { path: "/login", element: <Login /> },
+    { path: "/forgot-password", element: <Forgotpassword /> },
+    // { path: "/reset-password", element: <Resetpassword /> },
+
     { path: "/admin-dashboard", element: <AdminDashboard /> },
     { path: "/add-category", element: <AddCategory /> },
     { path: "/view-category", element: <ViewNewsCategory /> },

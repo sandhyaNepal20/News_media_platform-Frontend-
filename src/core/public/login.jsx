@@ -18,6 +18,7 @@ const Login = () => {
         // Store login state
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userData", JSON.stringify(res.data.user));
+        localStorage.setItem("token", res.data.token); // Store Token
 
         // Dispatch event to update Navbar dynamically
         window.dispatchEvent(new Event("storage"));
@@ -90,7 +91,9 @@ const Login = () => {
 
             {/* Forgot Password Link */}
             <div className="mt-4 text-center">
-              <a href="#" className="text-sm font-medium text-white hover:underline">Forgot password?</a>
+              <Link to="/forgot-password" className="text-sm font-medium text-white hover:underline">
+                Forgot password?
+              </Link>
             </div>
           </form>
         </div>

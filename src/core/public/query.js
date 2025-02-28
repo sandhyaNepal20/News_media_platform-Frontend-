@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+const API_BASE_URL = "http://localhost:3000/api/users";
 
 export const useRegisterUser = () => {
     return useMutation({
@@ -20,6 +21,15 @@ export const useLoginUser = () => {
         }
     });
 };
+// Forgot Password
+export const useForgotPassword = () => {
+    return useMutation({
+        mutationKey: "Forgot_Password",
+        mutationFn: (email) => axios.post(`${API_BASE_URL}/forgot-password`, { email }),
+    });
+};
+
+
 export const useNewsCategory = () => {
     return useMutation({
         mutationKey: "News_Category",
