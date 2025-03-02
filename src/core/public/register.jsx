@@ -7,7 +7,7 @@ import { useRegisterUser } from "./query";
 const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const saveApi = useRegisterUser();
-  
+
   const submit = (data) => {
     const formData = new FormData();
     formData.append("fullName", data.fullName);

@@ -43,11 +43,11 @@ const Layout = () => {
     return (
         <div className="min-h-screen bg-white transition-colors dark:bg-slate-950 p-6">
             <div className="flex flex-col items-center justify-center min-h-screen">
-                {/* ✅ Add Product Form */}
+                {/* ✅ Add News Form */}
                 <div className="w-full max-w-md p-6 bg-[#101F3F] text-white shadow-lg rounded-lg">
                     <form className="p-6" onSubmit={handleSubmit(submit)}>
                         <h1 className="text-2xl font-bold text-center mb-5">
-                            Add Product
+                            Add News
                         </h1>
 
                         {/* Category Selection */}
@@ -77,7 +77,7 @@ const Layout = () => {
                             <input
                                 type="text"
                                 className="w-full p-3 bg-white text-black border border-gray-400 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Enter product title"
+                                placeholder="Enter news title"
                                 {...register("title", { required: "Title is required" })}
                             />
                             {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
@@ -101,7 +101,7 @@ const Layout = () => {
                             <textarea
                                 rows="3"
                                 className="w-full p-3 bg-white text-black border border-gray-400 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Enter product details"
+                                placeholder="Enter news details"
                                 {...register("content", { required: "Content is required" })}
                             />
                             {errors.content && <p className="text-red-500 text-xs mt-1">{errors.content.message}</p>}

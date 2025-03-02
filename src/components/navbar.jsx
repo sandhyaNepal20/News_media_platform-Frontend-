@@ -70,14 +70,14 @@ function Navbar() {
 
     return (
         <header>
-            <nav className="fixed top-0 left-0 w-full bg-white z-50 flex items-center justify-between px-5 py-4 shadow-md">
+            <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-5 py-4 shadow-md bg-white dark:bg-gray-900 transition-all">
                 {/* Logo */}
                 <img src={logo} alt="Logo" style={{ maxWidth: "75px", maxHeight: "60px" }} />
 
                 {/* Navigation Menu */}
-                <ul className={`nav-ul flex gap-14 justify-end ${active ? "active" : ""}`}>
+                <ul className={`nav-ul flex gap-14 justify-end ${active ? "active" : ""} dark:bg-gray-900 dark:text-white`}>
                     <li>
-                        <Link className="no-underline font-semibold text-black" to="/" onClick={() => setActive(false)}>
+                        <Link className="no-underline font-semibold text-black dark:text-white" to="/" onClick={() => setActive(false)}>
                             Home
                         </Link>
                     </li>
@@ -87,7 +87,7 @@ function Navbar() {
                         onMouseLeave={handleMouseLeave}
                     >
                         <Link
-                            className="no-underline font-semibold flex items-center gap-2 text-black"
+                            className="no-underline font-semibold flex items-center gap-2 text-black dark:text-white"
                             onClick={() => setShowCategoryDropdown(true)}
                         >
                             {selectedCategory ? selectedCategory : "Top-Headlines"}
@@ -96,17 +96,17 @@ function Navbar() {
                                 icon={faCircleArrowDown}
                             />
                         </Link>
-                        <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown absolute left-0 top-full bg-white shadow-lg rounded-lg" : "dropdown p-2 hidden"}>
+                        <ul className={showCategoryDropdown ? "dropdown p-2 show-dropdown absolute left-0 top-full bg-white dark:bg-gray-800 shadow-lg rounded-lg" : "dropdown p-2 hidden"}>
                             {isLoading ? (
-                                <li className="text-gray-500">Loading...</li>
+                                <li className="text-gray-500 dark:text-gray-400">Loading...</li>
                             ) : isError ? (
-                                <li className="text-red-500">Error loading categories</li>
+                                <li className="text-red-500 dark:text-red-400">Error loading categories</li>
                             ) : (
                                 data?.data?.map((categoryItem, index) => (
                                     <li key={index}>
                                         <Link
                                             to={`/category/${categoryItem.name}`}
-                                            className="flex gap-3 capitalize text-black"
+                                            className="flex gap-3 capitalize text-black dark:text-white"
                                             onClick={() => handleCategoryClick(categoryItem.name)}
                                         >
                                             {categoryItem.name}
@@ -120,15 +120,14 @@ function Navbar() {
                     {/* Show My Account if authenticated, else show Login/Signup */}
                     <li>
                         {!isAuthenticated ? (
-                            <Link className="no-underline font-semibold flex items-center gap-2 text-black" to="/login">
+                            <Link className="no-underline font-semibold flex items-center gap-2 text-black dark:text-white" to="/login">
                                 Login/Signup
                             </Link>
                         ) : (
                             <div className="relative group">
-                                <Link className="no-underline font-semibold flex items-center gap-2 text-black" to="/myaccount">
+                                <Link className="no-underline font-semibold flex items-center gap-2 text-black dark:text-white" to="/myaccount">
                                     My Account
                                 </Link>
-
                             </div>
                         )}
                     </li>
@@ -136,8 +135,8 @@ function Navbar() {
                     <li>
                         <label className="inline-flex items-center cursor-pointer">
                             <input type="checkbox" className="sr-only peer" checked={darkMode} onChange={toggleTheme} />
-                            <div className="relative w-11 h-6 bg-gray-200 rounded-full peer-checked:bg-blue-600 dark:bg-gray-700">
-                                <div className={`absolute top-0.5 left-1 bg-white w-5 h-5 rounded-full transition-transform ${darkMode ? "translate-x-5" : ""}`}></div>
+                            <div className="relative w-11 h-6 bg-gray-200 dark:bg-gray-700 rounded-full peer-checked:bg-blue-600">
+                                <div className={`absolute top-0.5 left-1 bg-white dark:bg-gray-300 w-5 h-5 rounded-full transition-transform ${darkMode ? "translate-x-5" : ""}`}></div>
                             </div>
                         </label>
                     </li>
@@ -145,12 +144,12 @@ function Navbar() {
 
                 {/* Hamburger Menu */}
                 <div
-                    className={`ham-burger ${active ? "ham-open" : ""}`}
+                    className={`ham-burger ${active ? "ham-open" : ""} dark:bg-gray-800`}
                     onClick={() => setActive(!active)}
                 >
-                    <span className="lines line-1"></span>
-                    <span className="lines line-2"></span>
-                    <span className="lines line-3"></span>
+                    <span className="lines line-1 dark:bg-white"></span>
+                    <span className="lines line-2 dark:bg-white"></span>
+                    <span className="lines line-3 dark:bg-white"></span>
                 </div>
             </nav>
         </header>

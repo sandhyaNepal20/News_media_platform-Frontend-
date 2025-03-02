@@ -9,21 +9,44 @@ const Login = () => {
   const navigate = useNavigate();
 
   const submit = (data) => {
-    console.log(data);
+    console.log("Submitting Login Data:", data);
+
     loginApi.mutate(data, {
       onSuccess: (res) => {
         alert("Login successful!");
         console.log("Login Response:", res);
 
-        // Store login state
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("userData", JSON.stringify(res.data.user));
-        localStorage.setItem("token", res.data.token); // Store Token
+        if (res.data && res.data.user) {
+          const user = res.data.user;
 
-        // Dispatch event to update Navbar dynamically
-        window.dispatchEvent(new Event("storage"));
+          // ✅ Ensure name, email, and id are stored
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userData", JSON.stringify({
+            id: user.id,
+            fullName: user.fullName,  // ✅ Ensure name is stored
+            email: user.email,
+            role: user.role
+          }));
+          localStorage.setItem("token", res.data.token);
 
-        navigate("/");
+          console.log("User Data Stored in localStorage:", localStorage.getItem("userData"));
+
+          // Dispatch event to update UI
+          window.dispatchEvent(new Event("storage"));
+
+          // ✅ Check user role and redirect
+          if (user.role == 1) {
+            navigate("/admin-dashboard"); // Redirect to admin page
+          } else if (user.role == 0) {
+            navigate("/"); // Redirect to home page
+          } else {
+            console.error("Unknown role:", user.role);
+            alert("Access denied. Unknown role.");
+          }
+        } else {
+          console.error("Invalid response structure. User data missing.");
+          alert("Login failed. Please try again.");
+        }
       },
       onError: (error) => {
         console.error("Login Error:", error.response?.data);
@@ -31,6 +54,7 @@ const Login = () => {
       },
     });
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#101F3F]">
@@ -45,8 +69,11 @@ const Login = () => {
         </div>
 
         {/* Right Side: Form */}
-        <div onSubmit={handleSubmit(submit)} className="flex-1 flex justify-center">
-          <form className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10 shadow-[10px_8px_4px_0px_rgba(255, 253, 231, 0.8)]">
+        <div className="flex-1 flex justify-center">
+          <form
+            onSubmit={handleSubmit(submit)}  // ✅ Ensure form handles submit correctly
+            className="bg-[#101F3F] p-6 rounded-lg shadow-xl w-full max-w-md h-[400px] mt-10 shadow-[10px_8px_4px_0px_rgba(255, 253, 231, 0.8)]"
+          >
             {/* Email Field */}
             <div className="mb-4">
               <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Email</label>
@@ -57,6 +84,7 @@ const Login = () => {
                 placeholder="name@gmail.com"
                 required {...register("email", { required: "Email is required" })}
               />
+              {errors.email && <p className="text-red-500 text-xs">{errors.email.message}</p>}
             </div>
 
             {/* Password Field */}
@@ -68,6 +96,7 @@ const Login = () => {
                 className="shadow-sm bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 required {...register("password", { required: "Password is required" })}
               />
+              {errors.password && <p className="text-red-500 text-xs">{errors.password.message}</p>}
             </div>
 
             {/* Remember Me Checkbox */}
@@ -79,14 +108,13 @@ const Login = () => {
             {/* Login Button */}
             <div className="mt-4 text-center">
               <button type="submit" className="text-black bg-white hover:bg-white hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-6 py-2.5 text-center border-2 border-transparent hover:border-black">
-                Login
-                {loginApi.isLoading}
+                {loginApi.isLoading ? "Logging in..." : "Login"}
               </button>
             </div>
 
             <div className="mt-4 text-center">
-              <a href="#" className="text-sm font-medium text-white">Don't have an account? </a>
-              <Link to="/register" className="text-sm font-medium text-white hover:underline">SignUp</Link>
+              <p className="text-sm font-medium text-white">Don't have an account?</p>
+              <Link to="/register" className="text-sm font-medium text-white hover:underline">Sign Up</Link>
             </div>
 
             {/* Forgot Password Link */}
